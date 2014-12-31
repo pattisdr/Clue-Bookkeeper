@@ -2,7 +2,7 @@
 # Keeps your detective notes for the board game Clue 
 
 #Author: Dawn Pattison
-#Date: 12/12/2014
+#Date: 12/16/2014
 
 #Keeps two types of information
 #1) Your notepad. {Player 1: Conservatory: 'X', Knife: 'O', 'Miss Scarlet': 'U'}
@@ -275,7 +275,7 @@ def checkAll():
 #Formats notepad printing
 
 def notepadPrint():
-
+    print " "
     heading = playerList[:]
     heading.insert(0, 'Cards')
     data = []
@@ -336,21 +336,21 @@ def play():
             for player in playerList:
                 if notepad[player][suspect] == 'X':
                     suspecttemp+=1
-                    if suspecttemp == 3:
+                    if suspecttemp == numPlayers:
                         accusedSuspect = suspect
         for room in rooms:
             roomtemp = 0
             for player in playerList:
                 if notepad[player][room] == 'X':
                     roomtemp+=1
-                    if roomtemp == 3:
+                    if roomtemp == numPlayers:
                         accusedRoom = room
         for weapon in weapons:
             weapontemp = 0
             for player in playerList:
                 if notepad[player][weapon] == 'X':
                     weapontemp+=1
-                    if weapontemp == 3:
+                    if weapontemp == numPlayers:
                         accusedWeapon = weapon
         print  "==================================================="
         print "Deduced suspect: ", accusedSuspect
@@ -363,7 +363,11 @@ def play():
         potentialPrint()
 
  #"==================================================="
- #GAME STARTS HERE 
+ #GAME STARTS HERE
+
+print '#==================================================#'
+print '         Welcome to the CLUE Bookkeeper'
+print '#==================================================#'
             
 numPlayers = numberPlayers()
 you = yourName()
@@ -375,7 +379,6 @@ numCards = numberCards()
 yourCards()
 notepadPrint()
 play()
-
 
 
 
