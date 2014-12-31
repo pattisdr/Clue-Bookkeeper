@@ -8,7 +8,7 @@
 #1) Your notepad. {Player 1: Conservatory: 'X', Knife: 'O', 'Miss Scarlet': 'U'}
 #Player 1 doesn't have conservatory, has the knife, and unknown if carrying Miss Scarlet
 
-#2) You potentials.  Say I'm Player 1.  Player 3 disproves Player 2's guess.
+#2) Your potentials.  Say I'm Player 1.  Player 3 disproves Player 2's guess.
 #Now, I didn't get to see the card, but I know player 3 has one of three cards.
 #These cards are logged in potentials.
 
