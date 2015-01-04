@@ -15,6 +15,7 @@
 
 #=============================================================
 
+
 #Game cards:
 suspects = ['Colonel Mustard', 'Miss Scarlet', 'Mr. Green', 'Mrs. Peacock', 'Mrs. White', 'Professor Plum']
 
@@ -96,8 +97,40 @@ def notepadGenerator():
 
 #Returns integer
 def numberCards():
-    numCards = int(raw_input ("How many cards do you have? "))
-    return numCards
+    waiting = 0
+    while waiting == 0:
+        try:
+            numCards = int(raw_input ("How many cards do you have? "))
+            waiting += 1
+        except ValueError:
+            print ("Enter a number, please.")
+        
+    return (numCards)
+
+#function creates a dictionary for the number of cards every player has
+#(useful in deductions)
+def numCardDeduce(numCards):
+    print " "
+    
+    playerTotalCards = {}
+    if numPlayers == 3 or numPlayers == 6:
+        if numPlayers == 3:
+            for player in playerList:
+                playerTotalCards[player] = 6
+        else:
+            for player in playerList:
+                playerTotalCards[player] = 3
+    else:
+        playerTotalCards["".join(you)] = numCards
+        
+        for player in others:
+            cardTotal = int(raw_input ("How many cards does %s have? " %player))
+            playerTotalCards[player] = cardTotal
+    
+    return playerTotalCards
+
+        
+        
     
 #Updates notepad with your cards.
 def yourCards():
@@ -238,6 +271,35 @@ def updateNotepad(known, stop):
     for i in range(len(temp)):
         notepad[temp[i]][known] = 'X'
 
+  #This piece checks to see if you've learned a player's entire hand.  If so,
+#the notepad can be completed for this player. (Everything marked with an 'O' or
+        #an 'X')
+        
+    for player in playerList:
+        counter = 0
+        for knowns in notepad[player]:
+            if notepad[player][knowns] == 'O':
+                counter+=1
+        if counter == playerTotals[player]:
+            for knowns in notepad[player]:
+                if notepad[player][knowns] != 'O':
+                    notepad[player][knowns] = 'X'
+                
+            
+
+#function creates other players hands for you
+def hand():
+    handReproduce = {}
+    for player in playerList:
+        handReproduce[player] = []
+        for knowns in notepad[player]:
+            if notepad[player][knowns] == 'O':
+                handReproduce[player].append(knowns)
+    print handReproduce          
+            
+    
+    
+
 #Function checks every card in notepad against potential list
 #Where all deductions are made!  For example, If Player 1 guesses 3 cards,  and
 #Player 2 disproves and I've seen 2 of the 3, I know which card
@@ -359,6 +421,7 @@ def play():
         print ""
         
         notepadPrint()
+        display = hand()
         print ""
         potentialPrint()
 
@@ -377,11 +440,6 @@ potential = playerToEmpty()
 notepad = notepadGenerator()
 numCards = numberCards()
 yourCards()
+playerTotals = numCardDeduce(numCards)
 notepadPrint()
 play()
-
-
-
-
-
-    
